@@ -1,56 +1,25 @@
-# QR Code Generator for Biox Systems
+import qrcode
 
-This Python application generates a QR code for the official Biox Systems website: [https://www.bioxsystems.com](https://www.bioxsystems.com).
+# URL to encode
+url = "https://www.bioxsystems.com/"
 
-## 📌 Features
+# Create QR code instance
+qr = qrcode.QRCode(
+    version=1,  # controls the size of the QR Code
+    error_correction=qrcode.constants.ERROR_CORRECT_L,  # error correction level
+    box_size=10,  # size of each box in pixels
+    border=4,  # thickness of the border (boxes)
+)
 
-- Generates a QR code using Python and the `qrcode` library
-- Saves the QR code image as `biox_qr_code.png`
-- Opens the QR code image in the default viewer after creation
+# Add data to the QR code
+qr.add_data(url)
+qr.make(fit=True)
 
-## 🧰 Requirements
+# Generate the image
+img = qr.make_image(fill_color="black", back_color="white")
 
-- Python 3.x
-- `qrcode` library with Pillow support
+# Save the image
+img.save("biox_qr_code.png")
 
-## 🔧 Installation
-
-1. Clone or download this repository.
-2. (Recommended) Create and activate a virtual environment:
-   ```bash
-   python3 -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-3. Install dependencies:
-   ```bash
-   pip install 'qrcode[pil]'
-   ```
-
-## 🚀 Usage
-
-Run the script from your terminal:
-
-```bash
-python qr_code_generator.py
-```
-
-This will:
-- Generate a QR code image pointing to the Biox Systems website
-- Save it as `biox_qr_code.png`
-- Display the image in your default viewer
-
-## 📸 Example Output
-
-![QR Code Example](biox_qr_code.png)
-
-> Scan this with any QR code reader to visit [https://www.bioxsystems.com](https://www.bioxsystems.com)
-
-## 📁 Files Included
-
-- `qr_code_generator.py` – Python script to generate the QR code
-- `requirements.txt` – List of dependencies
-- `README.md` – Project documentation
-
-## ✍️ Author
-
-Aishwarya – MSCS-633 Hands-On Assignment 2
+# Show the image
+img.show()
